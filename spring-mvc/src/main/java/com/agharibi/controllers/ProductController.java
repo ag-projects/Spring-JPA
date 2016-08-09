@@ -54,32 +54,6 @@ public class ProductController {
 	public String delete(@PathVariable Integer id) {
 		productService.deleteProduct(id);
 		return "redirect:/products/list";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 }
