@@ -8,11 +8,13 @@ import java.util.Map;
 
 import javax.management.RuntimeErrorException;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.agharibi.domain.Customer;
 
 @Service
+@Profile("map")
 public class CustomerServiceImpl implements CustomerService {
 
 	private Map<Integer, Customer> customers;
