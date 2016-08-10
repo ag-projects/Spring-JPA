@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer customer1 = new Customer();
 		customer1.setId(1);
-		customer1.setFirstName("Leonl");
+		customer1.setFirstName("Leo");
 		customer1.setLastName("Messi");
 		customer1.setEmail("messi@yahoo.com");
 		customer1.setPhone("(858) 600-2002");
