@@ -3,21 +3,19 @@ package com.agharibi.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import com.agharibi.domain.Customer;
+import com.agharibi.domain.User;
 import com.agharibi.security.EncryptionService;
 import com.agharibi.services.AbstractJpaDaoService;
-import com.agharibi.services.CustomerService;
+import com.agharibi.services.UserService;
 
 @Service
 @Profile("jpadao")
-public class CustomerServiceJpaDaoImpl extends AbstractJpaDaoService implements CustomerService {
+public class UserServiceJpaDaoImpl extends AbstractJpaDaoService implements UserService {
 
 	private EncryptionService encryptionService;
 	
@@ -27,41 +25,37 @@ public class CustomerServiceJpaDaoImpl extends AbstractJpaDaoService implements 
 	}
 
 	@Override
-	public List<Customer> listAllCustomers() {
+	public List<?> listAll() {
 		EntityManager em = emf.createEntityManager();
-		return em.createQuery("from Customer", Customer.class).getResultList();
-
+		return em.createQuery("from User", User.class).getResultList();
 	}
 
 	@Override
-	public Customer getCustomerBy(Integer id) {
+	public User getBy(Integer id) {
 		EntityManager em = emf.createEntityManager();
-		return em.find(Customer.class, id);
+		return em.find(User.class, id);
 	}
 
 	@Override
-	public Customer addOrUpdateCutomer(Customer customer) {
+	public User saveOrUpdate(User user) {
 		EntityManager em = emf.createEntityManager();
-
 		em.getTransaction().begin();
 		
-		if(customer.getUser() != null && customer.getUser().getPassword() != null) {
-			customer.getUser().setEncryptedPassword(encryptionService.encryptString(customer.getUser().getPassword()));
+		if(user.getPassword() != null) {
+			user.setEncryptedPassword(encryptionService.encryptString(user.getPassword()));
 		}
 		
-		Customer savedCustomer = em.merge(customer);
+		User savedUser = em.merge(user);
 		em.getTransaction().commit();
-
-		return savedCustomer;
+		return savedUser;
 	}
 
 	@Override
-	public void deleteCustomer(Integer id) {
+	public void delete(Integer id) {
 		EntityManager em = emf.createEntityManager();
-
 		em.getTransaction().begin();
-		em.remove(em.find(Customer.class, id));
-		em.getTransaction().commit();
+		em.remove(em.find(User.class, id));
+		em.getTransaction().commit();;
 	}
 
 }

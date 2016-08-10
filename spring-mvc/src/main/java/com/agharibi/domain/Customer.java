@@ -1,9 +1,11 @@
 package com.agharibi.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 @Entity
@@ -19,6 +21,9 @@ public class Customer implements DomainObject {
 	private String lastName;
 	private String email;
 	private String phone;
+
+	@OneToOne(cascade = { CascadeType.ALL })
+	private User user;
 
 	public String getEmail() {
 		return email;
@@ -39,6 +44,10 @@ public class Customer implements DomainObject {
 
 	public String getPhone() {
 		return phone;
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 	public Integer getVersion() {
@@ -64,6 +73,10 @@ public class Customer implements DomainObject {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void setVersion(Integer version) {
