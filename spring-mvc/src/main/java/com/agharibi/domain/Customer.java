@@ -1,6 +1,5 @@
 package com.agharibi.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +21,7 @@ public class Customer implements DomainObject {
 	private String email;
 	private String phone;
 
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne
 	private User user;
 
 	public String getEmail() {
